@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class FilePrac {
     public static void listFiles(File file){
@@ -26,7 +25,12 @@ public class FilePrac {
     static File min = null;
     public static void main(String[] args) {
         File f1 = new File("/Users/weihaoran/Dropbox");
-
+        try {
+            FileInputStream fis = new FileInputStream(f1);
+            FileOutputStream fos = new FileOutputStream(f1);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         listFiles(f1);
 
         System.out.println("max : " + max.getName() + "Length: "+ max.length());
