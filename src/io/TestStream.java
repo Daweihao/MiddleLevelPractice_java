@@ -8,7 +8,11 @@ public class TestStream {
         try {
             File f = new File("Readme.md");
             FileInputStream fis = new FileInputStream(f);
-            File f1 = new File("Test.txt");
+            File f1 = new File("xyz/pyq/Test.txt");
+            File parent  = f1.getParentFile();
+            if(!parent.exists()){
+                parent.mkdirs();
+            }
 
             byte[] all = new byte[((int) f.length())];
             fis.read(all);

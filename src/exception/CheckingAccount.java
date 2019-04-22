@@ -1,3 +1,5 @@
+package exception;
+
 public class CheckingAccount extends Account{
     private double overdraftProtection;
     public CheckingAccount(double balance) {
