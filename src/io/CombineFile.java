@@ -8,20 +8,19 @@ public class CombineFile {
     }
 
     private static void mergeFiles(String s) {
-
-        try {
-            File destFile = new File(s);
-            FileOutputStream fos = new FileOutputStream(destFile);
+        File destFile = new File(s);
+        try(FileOutputStream fos = new FileOutputStream(destFile)) {
             int index = 0;
             while (true){
                 String tempName = s + "-" + index++;
                 File inputFile = new File(tempName);
                 if (!inputFile.exists())
                     break;
-                FileInputStream fio = new FileInputStream(inputFile);
-                byte[] data = new byte[((int) inputFile.length())];
-                fio.read(data);
-                fio.close();
+                byte[] data;
+                try (FileInputStream fio = new FileInputStream(inputFile)) {
+                    data = new byte[((int) inputFile.length())];
+                    fio.read(data);
+                }
                 fos.write(data);
                 fos.flush();
                 System.out.printf("Output subfiles %s to test.pdf %n", tempName);
