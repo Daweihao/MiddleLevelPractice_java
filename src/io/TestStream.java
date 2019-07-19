@@ -29,16 +29,40 @@ public class TestStream {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        File f = new File("Readme.md");
-        try (FileReader fr = new FileReader(f)){
-            char[] all = new char[(int) f.length()];
-            fr.read(all);
-            for (char b : all){
-                System.out.println(b);
-            }
+//        File f = new File("Readme.md");
+//        try (FileReader fr = new FileReader(f)){
+//            char[] all = new char[(int) f.length()];
+//            fr.read(all);
+//            for (char b : all){
+//                System.out.println(b);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        Hero[] hs = new Hero[10];
+        for (int i = 0; i < 10; i++) {
+            hs[i] = new Hero(i);
+        }
+        File f = new File("./garen.lol");
+
+        try (
+                FileOutputStream fos = new FileOutputStream(f);
+             ObjectOutputStream oos = new ObjectOutputStream(fos);
+             FileInputStream fis = new FileInputStream(f);
+             ObjectInputStream ois = new ObjectInputStream(fis);
+             ) {
+           oos.writeObject(hs);
+           Hero[] h2 = (Hero[]) ois.readObject();
+           for (Hero h : h2){
+               System.out.printf("hero: %d\n",h.hp);
+           }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
